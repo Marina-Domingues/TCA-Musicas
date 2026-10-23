@@ -1,44 +1,55 @@
 
 class Musica {
-    constructor(titulo, artista, genero, atividade) {
+    constructor(titulo, artista, genero) {
         this.titulo = titulo
         this.artista = artista
         this.genero = genero
-        this.atividade = atividade
+
     }
     mostrarInformacoes(){
         console.log("Música(s):"+this.titulo)
     }
-class Titulo{
-    constructor(titulo) {
-        this.titulo = titulo
-    }
+}
 let repositorio_musicas = [
-    new Musica("Shake It Off", "Taylor Swift", "1", "3"),
-    new Musica("Love Story", "Taylor Swift", "1", "1"),
-    new Musica("Cardigan", "Taylor Swift", "2", "4"),
-    new Musica("Cruel Summer", "Taylor Swift", "1", "3"),
-    new Musica("Anti-Hero", "Taylor Swift", "1", "4"),
-    new Musica("Levitating", "Dua Lipa", "1", "2"),
-    new Musica("Velha Infância", "Tribalistas", "4", "1"),
-    new Musica("Anna Júlia", "Los Hermanos", "2", "3")
+    new Musica("Shake It Off", "Taylor Swift", "1"),
+    new Musica("Love Story", "Taylor Swift", "1"),
+    new Musica("Cardigan", "Taylor Swift", "2"),
+    new Musica("Cruel Summer", "Taylor Swift", "1"),
+    new Musica("Anti-Hero", "Taylor Swift", "1"),
+    new Musica("Levitating", "Dua Lipa", "1"),
+    new Musica("Velha Infância", "Tribalistas", "4"),
+    new Musica("Anna Júlia", "Los Hermanos", "2")
 ]
 
-
 let playlists = {
-    'playlistEstudos' : [repositorio_musicas[2].titulo,repositorio_playlist[6].titulo,repositorio_musicas[1].titulo],
-    'playlistFesta' : [repositorio_musicas[0].titulo,repositorio_musicas[3].titulo,repositorio_musicas[5].titulo],
-    'playlistChorar' : [ repositorio_musicas[4].titulo,repositorio_musicas[2].titulo,repositorio_musicas[7].titulo],
-    'repositorio_playlists' : [playlistEstudos, playlistFesta, playlistChorar]
-    
-}
+    'playlistEstudos' : [repositorio_musicas[2],repositorio_musicas[6],repositorio_musicas[1]],
+    'playlistFesta' : [repositorio_musicas[0],repositorio_musicas[3],repositorio_musicas[5]],
+    'playlistChorar' : [ repositorio_musicas[4],repositorio_musicas[2],repositorio_musicas[7]]    
 }
 let opcao = prompt("O que você deseja fazer hoje?" + "1-Criar playlist personalizada\n" + "2-Ver playlist já criada\n" + "3-Adicionar músicas")
 if (opcao == 1) {
     alert("Vamos criar sua playlist!")
    let nomePlaylist = prompt('Digite o nome da playlist.')
-playlists[nomePlaylist] = []
-   let this.playlists[nomePlaylist] =  prompt("Qual música você deseja adicionar a sua playlist? Adicione uma música por vez.\n" + 
+   while(nomePlaylist in playlists){
+    alert("Não é possível criar uma playlist com o mesmo nome de uma playlist ja existente. Tente outro.")
+    nomePlaylist = prompt('Digite outro nome para a playlist.')
+   }
+playlists[nomePlaylist]= []
+   let continuar =  prompt("Deseja adicionar uma música a sua playlist? Responda com: sim/não.").toLowerCase()
+while(continuar=="sim"){
+    let titulo= prompt("Qual música deseja adicionar?")
+    let musicaEncontrada = repositorio_musicas.find(musica => musica.titulo == titulo);
+    if(musicaEncontrada){
+     playlists[nomePlaylist].push(musicaEncontrada)
+     alert("Música adicionada a playlist!")
+    } else {
+        alert("Essa música não faz parte do repositório! Tente adicionar outra música!")
+    }
+    continuar=prompt("Deseja adicionar outra música a sua playlist? Responda com: sim/não.").toLowerCase()
+}
+alert("Playlist criada com sucesso!")
+
+
 
 } else if (opcao == 2) {
     alert("Vamos ver as playlists!")
@@ -55,10 +66,11 @@ playlists[nomePlaylist] = []
 } else if (opcao == 3) {
     alert("Vamos adicionar músicas!")
     let titulo = prompt("Qual o título da música?")
-    let artista = prompt("De qual artista é a música" + titulo + "?")
+    let artista = prompt("De qual artista é a música?")
     let genero = prompt("De qual gênero é a sua música?" + "1-Pop\n" + "2-Rock\n" + "3-Rap\n" + "4-MPB\n" + "5-Sertanejo")
-    let novaMusica = new Musica(titulo, artista, humor, atividade)"
-    repositorio.push(novaMusica);
+    let novaMusica = new Musica(titulo, artista, genero)"
+    repositorio_musicas.push(novaMusica);
+    alert("Música adicionada com sucesso!")
 
 } else {
     alert("Opção inválida!:(")
