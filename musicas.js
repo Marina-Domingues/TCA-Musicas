@@ -26,16 +26,16 @@ let playlists = {
     'playlistFesta' : [repositorio_musicas[0],repositorio_musicas[3],repositorio_musicas[5]],
     'playlistChorar' : [ repositorio_musicas[4],repositorio_musicas[2],repositorio_musicas[7]]    
 }
-let opcao = prompt("O que você deseja fazer hoje?" + "1-Criar playlist personalizada\n" + "2-Ver playlist já criada\n" + "3-Adicionar músicas")
+let opcao = prompt("O que você deseja fazer hoje?" + "1-Criar playlist personalizada\n" + "2-Ver playlist já criada\n" + "3-Adicionar músicas/n" + "4-Remover músicas")
 if (opcao == 1) {
     alert("Vamos criar sua playlist!")
    let nomePlaylist = prompt('Digite o nome da playlist.')
    while(nomePlaylist in playlists){
-    alert("Não é possível criar uma playlist com o mesmo nome de uma playlist ja existente. Tente outro.")
+    alert("Não é possível criar uma playlist com o mesmo nome de uma playlist já existente. Tente outro.")
     nomePlaylist = prompt('Digite outro nome para a playlist.')
    }
 playlists[nomePlaylist]= []
-   let continuar =  prompt("Deseja adicionar uma música a sua playlist? Responda com: sim/não.").toLowerCase()
+   let continuar =  prompt("Deseja adicionar uma música a sua playlist? Responda com: sim/não.").trim().toLowerCase()
 while(continuar=="sim"){
     let titulo= prompt("Qual música deseja adicionar?")
     let musicaEncontrada = repositorio_musicas.find(musica => musica.titulo == titulo);
@@ -43,9 +43,9 @@ while(continuar=="sim"){
      playlists[nomePlaylist].push(musicaEncontrada)
      alert("Música adicionada a playlist!")
     } else {
-        alert("Essa música não faz parte do repositório! Tente adicionar outra música!")
+        alert("Essa música não faz parte do repositório! Tente adicionar outra música.")
     }
-    continuar=prompt("Deseja adicionar outra música a sua playlist? Responda com: sim/não.").toLowerCase()
+    continuar=prompt("Deseja adicionar outra música a sua playlist? Responda com: sim/não.").trim().toLowerCase()
 }
 alert("Playlist criada com sucesso!")
 
@@ -53,28 +53,47 @@ alert("Playlist criada com sucesso!")
 
 } else if (opcao == 2) {
     alert("Vamos ver as playlists!")
-    let escolha= prompt("Qual playlist você deseja acessar?" + "1-Playlist para Estudos\n" + "2- Playlist para Festa\n" + "3-Playlist para chorar")
-    if(escolha==1){
-        console.log(playlists.playlistEstudos)
-    } else if (escolha==2){
-        console.log(playlists.playlistFesta)
-    } else if (escolha==3){
-        console.log(playlists.playlistChorar)
-    }else{
-        console.log("Opção inválida!:(")
+    let nomePlaylist;
+    for(nomePlaylist in playlists){
+        console.log(nomePlaylist);
     }
+       let escolha= prompt("Qual playlist você deseja acessar?")  
+    if (playlists[escolha]) {
+        for (let musica of playlists[escolha]) {
+         console.log(musica.titulo);
+        }
+        } else {
+    alert("Playlist não encontrada!");
+    }
+
 } else if (opcao == 3) {
     alert("Vamos adicionar músicas!")
     let titulo = prompt("Qual o título da música?")
     let artista = prompt("De qual artista é a música?")
     let genero = prompt("De qual gênero é a sua música?" + "1-Pop\n" + "2-Rock\n" + "3-Rap\n" + "4-MPB\n" + "5-Sertanejo")
-    let novaMusica = new Musica(titulo, artista, genero)"
+    let novaMusica = new Musica(titulo, artista, genero)
     repositorio_musicas.push(novaMusica);
     alert("Música adicionada com sucesso!")
 
+} else if (opcao == 4) {
+    alert("Vamos remover músicas!") 
+   let titulo = prompt("Qual o título da música?").trim().toLowerCase()
+    let indice= repositorio_musicas.findIndex(musica=>(musica.titulo.trim().toLowerCase())==titulo)
+    if(indice=-1){
+        alert("Música não encontrada:(")
+
+    } else{
+        repositorio_musicas.splice(indice, 1)
+    alert("Música removida com sucesso!")
+} 
 } else {
     alert("Opção inválida!:(")
 }
+
+
+
+
+
 
 
 
